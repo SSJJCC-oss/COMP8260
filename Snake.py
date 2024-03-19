@@ -6,15 +6,17 @@ import random
 delay = 0.1
 score = 0
 high_score = 0
-
+wd = 600 #width
+ht = 600 #height
 
 # Creating a window screen
 wn = turtle.Screen()
 wn.title("Snake Game")
 wn.bgcolor("white")
 # the width and height can be put as user's choice
-wn.setup(width=600, height=600)
+wn.setup(width=wd, height=ht)
 wn.tracer(0)
+
 
 # head of the snake
 head = turtle.Turtle()
@@ -93,20 +95,12 @@ segments = []
 # Main Gameplay
 while True:
 	wn.update()
+ 
+	# Collision detection logic
 	if head.xcor() > 290 or head.xcor() < -290 or head.ycor() > 290 or head.ycor() < -290:
-		time.sleep(1)
-		head.goto(0, 0)
-		head.direction = "Stop"
-		colors = random.choice(['red', 'blue', 'green'])
-		shapes = random.choice(['square', 'circle'])
-		for segment in segments:
-			segment.goto(1000, 1000)
-		segments.clear()
-		score = 0
-		delay = 0.1
-		pen.clear()
-		pen.write("Score : {} High Score : {} ".format(
-			score, high_score), align="center", font=("candara", 24, "bold"))
+	handle_collision()
+    
+    
 	if head.distance(food) < 20:
 		x = random.randint(-270, 270)
 		y = random.randint(-270, 270)
