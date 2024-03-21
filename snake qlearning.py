@@ -33,8 +33,8 @@ border.pendown()
 border.color("black")  
 for _ in range(4): #draw boarder
     border.forward(600)  # The length of each side
-    border.right(90)  # Turn right to draw the next side
-border.hideturtle()  # Hide the turtle after drawing the border
+    border.right(90)  
+border.hideturtle() 
 
 # Snake head setup
 head = turtle.Turtle()
@@ -126,7 +126,7 @@ def handle_collision():
     highest_reward_score = max(highest_reward_score, score)
     highest_food_score = max(highest_food_score, len(segments) * 10)  # 10 points per food
     
-    exploration_rate = 1.0  # Reset exploration rate or adjust according to your strategy
+    exploration_rate = 1.0  # Reset exploration rate or adjust accordingly
     
     # Game over
     time.sleep(1)
@@ -140,7 +140,7 @@ def handle_collision():
     update_score_display() 
     reset_game()
       
-#checks for dangers in the area, counts as action
+#checks for dangers in the area
 def is_danger_ahead(direction, head, segments): 
     next_position = head.position()
     if direction == "up":
@@ -211,10 +211,10 @@ pen.penup()
 pen.hideturtle()
 update_score_display()
 
-#save functions ------------------------------------------------------------------------
+#### save functions ####
 # Get the directory where the script is located
 script_dir = os.path.dirname(os.path.realpath(__file__))
-# Use this directory to construct the full path to the Q-table file
+# construct the full path to the Q-table file
 q_table_path = os.path.join(script_dir, "q_table.json")
  
 def load_q_table(filename="q_table.json"):
@@ -236,6 +236,20 @@ def save_q_table(q_table, filename="q_table.json"):
         # Convert tuple keys to strings
         q_table_str_keys = {str(key): value for key, value in q_table.items()}
         json.dump(q_table_str_keys, file)
+        
+#save game functions
+def save_on_demand():
+    save_q_table(q_table, q_table_path)
+
+def quit_game():
+    save_q_table(q_table, q_table_path)
+    print("Q-table saved. Exiting game...")
+    wn.bye() 
+    
+wn.listen()  # Start listening to keyboard events
+wn.onkeypress(quit_game, "q") # Press 'q' to save & quit
+wn.onkeypress(save_on_demand, "s")  # Press 's' to save  
+
         
 # Q-learning setup
 ACTIONS = ['up', 'down', 'left', 'right']
@@ -304,7 +318,7 @@ def update_q_table(state, action, reward, next_state):
     q_table[state][action] = new_value
  
 #reward functions 
-def calculate_distance(pos1, pos2): # calculate any distance between two
+def calculate_distance(pos1, pos2): # calculate any distance between two points
     return ((pos1[0] - pos2[0]) ** 2 + (pos1[1] - pos2[1]) ** 2) ** 0.5
 
 def update_reward_for_food_distance(current_state, new_state, reward): # reward based on how close to food the snake got
@@ -349,22 +363,6 @@ def calculate_reward(current_state, new_state, action):
 
 #loads q table at the start
 q_table = load_q_table(q_table_path)
- 
- 
-#####  
-# Inside your key event handling (if applicable)
-def save_on_demand():
-    save_q_table(q_table, q_table_path)
-
-def quit_game():
-    save_q_table(q_table, q_table_path)
-    print("Q-table saved. Exiting game...")
-    wn.bye()  # This closes the turtle graphics window 
-    
-wn.listen()  # Start listening to keyboard events
-wn.onkeypress(quit_game, "q")
-wn.onkeypress(save_on_demand, "s")  # Press 's' to save  
-
       
 # Main game loop---------------------------------------------
 while True:
