@@ -7,6 +7,7 @@ from game import SnakeGameAI, Direction, Point
 import torch.nn as nn           #neural net
 import torch.optim as optim     #optimiser
 from model import Linear_QNet   #imports linear_qnet function from model 
+from model import train_model   #imports train model 
 
 MAX_MEMORY = 100_000
 BATCH_SIZE = 1000
