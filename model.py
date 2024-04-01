@@ -56,18 +56,18 @@ class QLearningTrainer:
             reward = torch.unsqueeze(reward, 0)
             done = (done, )
 
-        pred = self.model(state)
+        predict = self.model(state)
 
-        target = pred.clone()
+        target = predict.clone() # target value for Q Learning update
         for i in range(len(done)):
-            Q_new = reward[i]
+            new_Q_value = reward[i]
             if not done[i]:
-                Q_new = reward[i] + self.discount * torch.max(self.model(next_state[i]))
+                new_Q_value = reward[i] + self.discount * torch.max(self.model(next_state[i]))
 
-            target[i][torch.argmax(action[i]).item()] = Q_new
+            target[i][torch.argmax(action[i]).item()] = new_Q_value # Updates the Q-value of the action taken in the current state
     
         self.optimizer.zero_grad()
-        loss = self.criterion(target, pred)
+        loss = self.criterion(target, predict) # Loss between the target Q-values and the current Q-values
         loss.backward()
 
         self.optimizer.step()
