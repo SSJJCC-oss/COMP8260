@@ -9,8 +9,8 @@ from model import DeepQNetwork, QLearningTrainer
 from helper import plot
 
 MAX_MEMORY = 100_000
-BATCH = 1000
 LEARNING_RATE = 0.001
+BATCH = 1000
 
 class Agent:
 
