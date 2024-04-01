@@ -21,11 +21,11 @@ class DeepQNetwork(nn.Module):
 
     # Saving the model. Helps saving the trained model for further training another time 
     def save_model(self, file_name='model.pth'):
-        model_folder_path = './saved_models'
-        if not os.path.exists(model_folder_path):
-            os.makedirs(model_folder_path)
+        model_path = './saved_models'
+        if not os.path.exists(model_path):
+            os.makedirs(model_path)
 
-        file_name = os.path.join(model_folder_path, file_name)
+        file_name = os.path.join(model_path, file_name)
         torch.save(self.state_dict(), file_name)
 
 
