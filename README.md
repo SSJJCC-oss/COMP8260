@@ -18,32 +18,6 @@ This project demonstrates the use of **Reinforcement Learning** and **Deep Q-Lea
 2. **Learning Phase**: Through experience and the Deep Q-Learning algorithm, the agent learns to associate specific actions with higher rewards (e.g., moving towards food while avoiding collisions).
 3. **Improved Gameplay**: Over time, the snake becomes proficient at locating and eating the food while avoiding obstacles, improving its performance.
 
-## Getting Started
-
-### Prerequisites
-To run the project, ensure you have the following installed:
-- Python 3.8+
-- Required Python libraries:
-  - `numpy`
-  - `tensorflow` or `pytorch` (depending on the library used in `model.py`)
-  - `pygame`
-
-### Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/snake-rl.git
-   cd snake-rl
-   ```
-2. Install the dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-### Running the Game
-To run the Snake game powered by Reinforcement Learning:
-```bash
-python agent.py
-```
 
 ## How to Use
 - Run the `agent.py` script to watch the Snake game in action.
